@@ -6,11 +6,9 @@ class Solution {
         }
          HashSet<Integer> set = new HashSet<>();
         for (Integer value : map.values()) {
-            if (!set.add(value)) {
-                // set.add returns false if value already exists
-                return false;
-            }
+          set.add(value);
         }
+        if(map.size()!=set.size())return false;
         return true;
     }
 }
