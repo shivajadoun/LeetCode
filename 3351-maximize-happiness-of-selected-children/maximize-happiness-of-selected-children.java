@@ -14,20 +14,7 @@ class Solution {
             
         }
             
-        //     int j=i;
-        //     ans+=hap[i];
-        //     while(j>=0){   
-        //         if(hap[j]!=0&&i!=j){
-        //             hap[j]=hap[j]-1;
-        //         }
-        //         j--;
-        //     }
-        //     k--;
-        //     if(k==0){
-        //         break;
-        //     }
-
-        // }
+        
         return ans;
     }
 }
