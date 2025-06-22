@@ -3,20 +3,21 @@ class Solution {
       int len=s.length();
       int rem=len%k;
       rem=rem !=0 ? k-rem:rem;
+      StringBuilder sb=new StringBuilder(s);
       while(rem>0){
-        s+=fill;
+        sb.append(fill+"");
         rem--;
       }
-      System.out.println(s);
+    //   System.out.println(s);
       int d=0;
-      int n=s.length();
+      int n=sb.length();
       String arr[]=new String[n/k];
       for(int i=0;i<n;i+=k){
-        String st="";
+        StringBuilder st=new StringBuilder();
         for(int j=i;j<i+k;j++){
-        st+=s.charAt(j);
+        st.append(sb.charAt(j));
         }
-        arr[d++]=st;
+        arr[d++]=st.toString();
       }
       return arr;
     }
