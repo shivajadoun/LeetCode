@@ -1,30 +1,40 @@
 class Solution {
     public List<List<Integer>> fourSum(int[] nums, int target) {
-        Arrays.sort(nums);
-        Set<List<Integer>> s = new HashSet<>();
-        List<List<Integer>> output = new ArrayList<>();
-        for (int i = 0; i < nums.length; i++) {
-            for (int j = i + 1; j < nums.length; j++) {
-                int k = j + 1;
-                int l = nums.length - 1;
-                while (k < l) {
-                    long sum = nums[i];
-                    sum += nums[j];
-                    sum += nums[k];
-                    sum += nums[l];
+        Arrays.sort(nums);  // Sort the array
+        List<List<Integer>> res = new ArrayList<>();
+
+        for (int a = 0; a < nums.length - 3; a++) {
+            if (a > 0 && nums[a] == nums[a - 1]) continue;
+
+            for (int b = a + 1; b < nums.length - 2; b++) {
+                if (b > a + 1 && nums[b] == nums[b - 1]) continue;
+
+                // Early pruning optimization
+                if ((long) nums[a] + nums[b] + nums[b + 1] + nums[b + 2] > target) break;
+                if ((long) nums[a] + nums[b] + nums[nums.length - 1] + nums[nums.length - 2] < target) continue;
+
+                int c = b + 1, d = nums.length - 1;
+
+                while (c < d) {
+                    long sum = (long) nums[a] + nums[b] + nums[c] + nums[d];
+
                     if (sum == target) {
-                        s.add(Arrays.asList(nums[i], nums[j], nums[k], nums[l]));
-                        k++;
-                        l--;
+                        res.add(Arrays.asList(nums[a], nums[b], nums[c], nums[d]));
+
+                        while (c < d && nums[c] == nums[c + 1]) c++;
+                        while (c < d && nums[d] == nums[d - 1]) d--;
+
+                        c++;
+                        d--;
                     } else if (sum < target) {
-                        k++;
+                        c++;
                     } else {
-                        l--;
+                        d--;
                     }
                 }
             }
         }
-        output.addAll(s);
-        return output;
+
+        return res;
     }
 }
