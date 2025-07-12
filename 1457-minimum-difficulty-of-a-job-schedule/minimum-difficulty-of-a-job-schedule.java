@@ -1,29 +1,29 @@
 class Solution {
-    public int minDifficulty(int[] jobDifficulty, int d) {
-        int n=jobDifficulty.length;
-        if(n<d)return -1;
-        int dp[][]=new int[n][d+1];
-       for(int i=0;i<n;i++){
-        Arrays.fill(dp[i],-1);
-       }
-        return solve( jobDifficulty,d,0, dp);
-    }
-    private int solve( int arr[],int d,int i,int dp[][]){
+    public static int  solve(int arr[],int n,int idx,int d,int dp[][]){
         if(d==1){
-            int maxd=arr[i];
-            for(int k=i;k<arr.length;k++){
-                maxd=Math.max(arr[k],maxd);
+            int max=arr[idx];
+            for(int i=idx;i<n;i++){
+                max=Math.max(max,arr[i]);
+                }
+                return max;
             }
-            return maxd;
+            if(dp[idx][d]!=-1)return dp[idx][d];
+            int max=arr[idx];
+            int fres=Integer.MAX_VALUE;
+            for(int i=idx;i<=n-d;i++){
+                max=Math.max(max,arr[i]);
+                int resf=max+solve(arr,n,i+1,d-1,dp);
+                fres=Math.min(fres,resf);
+            }
+            return dp[idx][d]=fres;
+        
+    }
+    public int minDifficulty(int[] job, int d) {
+        int dp[][]=new int[2000][2000];
+        for(int i=0;i<dp.length;i++){
+            Arrays.fill(dp[i],-1);
         }
-        if(dp[i][d]!=-1)return dp[i][d];
-        int max=0;
-        int finalr=Integer.MAX_VALUE;
-        for(int j=i;j<=arr.length-d;j++){
-            max=Math.max(max,arr[j]);
-            int result=max+solve(arr,d-1,j+1,dp);
-              finalr=Math.min(result,finalr);
-        }
-        return dp[i][d]=finalr;
+       if(job.length<d)return -1;
+       return solve(job,job.length,0,d,dp);
     }
 }
