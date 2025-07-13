@@ -1,29 +1,27 @@
 class Solution {
-    public static int  solve(int arr[],int n,int idx,int d,int dp[][]){
-        if(d==1){
-            int max=arr[idx];
-            for(int i=idx;i<n;i++){
-                max=Math.max(max,arr[i]);
-                }
-                return max;
-            }
-            if(dp[idx][d]!=-1)return dp[idx][d];
-            int max=arr[idx];
-            int fres=Integer.MAX_VALUE;
-            for(int i=idx;i<=n-d;i++){
-                max=Math.max(max,arr[i]);
-                int resf=max+solve(arr,n,i+1,d-1,dp);
-                fres=Math.min(fres,resf);
-            }
-            return dp[idx][d]=fres;
-        
-    }
     public int minDifficulty(int[] job, int d) {
-        int dp[][]=new int[2000][2000];
-        for(int i=0;i<dp.length;i++){
-            Arrays.fill(dp[i],-1);
+        int arr[][]=new int[301][301];
+        for(int i=0;i<arr.length;i++){
+            Arrays.fill(arr[i],-1);
         }
-       if(job.length<d)return -1;
-       return solve(job,job.length,0,d,dp);
+     int n=job.length;
+     if(d>n)return -1;
+     return solve(job,n,0,d,arr);
+    }
+    public static int solve(int job[],int n,int idx,int d,int arr[][]){
+        if(d==1){
+            int max=0;
+            for(int i=idx;i<n;i++)max=Math.max(job[i],max);
+            return max;
+        }
+        if(arr[idx][d]!=-1)return arr[idx][d];
+        int max=0;
+        int finalv=Integer.MAX_VALUE;
+        for(int i=idx;i<=n-d;i++){
+            max=Math.max(job[i],max);
+            int res=max+solve(job,n,i+1,d-1,arr);
+            finalv=Math.min(res,finalv);
+        }
+        return arr[idx][d]=finalv;
     }
 }
