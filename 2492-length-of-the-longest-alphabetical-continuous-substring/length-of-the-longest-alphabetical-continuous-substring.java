@@ -7,7 +7,7 @@ class Solution {
         int currLen = 1;
 
         for (int i = 1; i < n; i++) {
-            if (s.charAt(i) - s.charAt(i - 1) == 1) {
+            if (s.charAt(i)-'a' == s.charAt(i - 1)-'a'+1) {
                 currLen++;
             } else {
                 currLen = 1;
