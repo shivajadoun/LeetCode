@@ -3,7 +3,7 @@ class Solution {
     int[][] dp;
 
     public int numberOfWays(int n, int x) {
-        dp = new int[301][n + 1];
+        dp = new int[301][301];
         for (int[] d : dp) Arrays.fill(d, -1);
         return solve(1, n, x, 0);
     }
