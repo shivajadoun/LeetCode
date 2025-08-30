@@ -1,34 +1,37 @@
 class Solution {
     public boolean isValidSudoku(char[][] board) {
-        HashSet<Character>[] rows = new HashSet[9];
-        HashSet<Character>[] cols = new HashSet[9];
-        HashSet<Character>[] boxes = new HashSet[9];
 
-        for (int i = 0; i < 9; i++) {
-            rows[i] = new HashSet<>();
-            cols[i] = new HashSet<>();
-            boxes[i] = new HashSet<>();
-        }
+        for(int i=0;i<9;i++){
+             Map<Character,Integer>mapcol=new HashMap<>();
+            Map<Character,Integer>maprow=new HashMap<>();
+            for(int j=0;j<9;j++){
+                if(board[i][j]!='.') mapcol.put(board[i][j],mapcol.getOrDefault(board[i][j],0)+1);
+                  if(board[j][i]!='.') maprow.put(board[j][i],maprow.getOrDefault(board[j][i],0)+1);
+            }
+            if(i%3==0){
+             for(int k=0;k<9;k+=3){
 
-        for (int r = 0; r < 9; r++) {
-            for (int c = 0; c < 9; c++) {
-                if (board[r][c] == '.') {
-                    continue;
+              Map<Character,Integer>mapcol3=new HashMap<>();
+                for(int j=i;j<i+3;j++ ){
+                      for(int t=k;t<k+3;t++ ){
+
+                if(board[j][t]!='.') mapcol3.put(board[j][t],mapcol3.getOrDefault(board[j][t],0)+1);
+                      }
                 }
+             for(Integer val:mapcol3.values()){
+                if(val>1)return false;
+            }
+            
+            }
+            }
 
-                char value = board[r][c];
-                int boxIndex = (r / 3) * 3 + (c / 3);
-
-                if (rows[r].contains(value) || cols[c].contains(value) || boxes[boxIndex].contains(value)) {
-                    return false;
-                }
-
-                rows[r].add(value);
-                cols[c].add(value);
-                boxes[boxIndex].add(value);
+            for(Integer val:mapcol.values()){
+                if(val>1)return false;
+            }
+              for(Integer val:maprow.values()){
+                if(val>1)return false;
             }
         }
-
-        return true;        
+        return true;
     }
 }
