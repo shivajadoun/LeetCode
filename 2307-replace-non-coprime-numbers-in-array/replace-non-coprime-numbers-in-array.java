@@ -15,13 +15,12 @@ class Solution {
     ll.add(nums[i]);
     j++;
     
-    // keep merging while last two are not coprime
     while(j > 0 && gcd(ll.get(j), ll.get(j-1)) != 1){
         int merged = lcm(ll.get(j), ll.get(j-1));
         ll.remove(j);
         ll.remove(j-1);
         ll.add(merged);
-        j = ll.size() - 1; // update index
+        j = ll.size() - 1; 
     }
 }
 
