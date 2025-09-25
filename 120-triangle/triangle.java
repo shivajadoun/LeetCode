@@ -1,14 +1,22 @@
 class Solution {
     public int minimumTotal(List<List<Integer>> triangle) {
-        int hight=triangle.size();
-        int dp[][]=new int[hight+1][hight+1];
-        for(int i=hight-1;i>=0;i--){
-            for(int j=0;j<=i;j++){
-                dp[i][j]=triangle.get(i).get(j)+Math.min(dp[i+1][j],dp[i+1][j+1]);
+        int n=triangle.size();
+        int dp[][]=new int[n][n];
 
-            System.out.print(dp[i][j]+" ");
+        for(int i=0; i<n; i++) {
+            dp[n-1][i]=triangle.get(n-1).get(i);
+        }
+
+        for(int i=n-2; i>=0; i--) {
+            for(int j=i; j>=0; j--) {
+                int down=triangle.get(i).get(j)+dp[i+1][j];
+                int downRight=triangle.get(i).get(j)+dp[i+1][j+1];
+
+                dp[i][j]=Math.min(down,downRight);
             }
-        }  
-        return dp[0][0];       
+        }
+
+        return dp[0][0];
+        
     }
 }
