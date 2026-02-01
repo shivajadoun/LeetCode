@@ -1,11 +1,19 @@
 class Solution {
     public char nextGreatestLetter(char[] letters, char target) {
-        for(char ch:letters){
-            if(ch>target){
-                return ch;
+    
+        int ans=Integer.MAX_VALUE;
+        int idx=-1;
+        for(int i=0;i<letters.length;i++){ 
+            int n=letters[i]-target;
+            if(n>0 && ans>n){
+                idx=i;
+                ans=n;
             }
+            
+            
+
         }
-        return letters[0];
-     
+        if(idx==-1)return letters[0];
+        return letters[idx];
     }
 }
